@@ -1,0 +1,10 @@
+---
+# To check the node version when the installation is done
+- name: Check the node version
+  raw: docker -v
+  register: output
+
+# when version fails
+- name: 
+  fail: msg='installation failed'
+  when: "'docker' in output.stdout"
