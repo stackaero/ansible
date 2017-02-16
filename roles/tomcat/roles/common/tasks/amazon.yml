@@ -1,0 +1,6 @@
+---
+
+# Install selinux and python libraries
+- name: Install libselinux-python for Amazon Linux
+  yum: name=libselinux-python state=present
+  
