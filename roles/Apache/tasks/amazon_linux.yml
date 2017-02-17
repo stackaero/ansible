@@ -1,0 +1,69 @@
+---
+# Installing Required Modules
+- name: Install common
+  yum: name={{ item }} state=present 
+  with_items:
+    - make
+    - gcc
+    - openssl-devel
+    - pcre-devel
+
+# Downloading Apache From Source    
+- name: Download the apache2 file from source
+  unarchive: 
+    src: "{{ apache2_amazon }}"
+    dest: /opt/
+    remote_src: True
+
+# Downloading Apr File From Source       
+- name: Download the aprfile from source
+  get_url: url="{{ apr_amazon }}" dest=/tmp
+
+# Exctrating Apr To a Location   
+- name: Extract apr
+  unarchive: 
+    src: /tmp/apr-1.5.2.tar.gz 
+    dest: /tmp/
+    remote_src: True
+
+# Moving Files To Srclib   
+- name: move files 
+  command: mv /tmp/apr-1.5.2 /opt/httpd-2.4.25/srclib/apr
+ 
+# Downloading The Apr-Util File From The Source    
+- name: Download the apr-util file from source
+  get_url: url="{{ apr_util_amazon }}" dest=/tmp
+
+# Extracting Apr-Util To a Location    
+- name: Extract apr-util
+  unarchive: 
+    src: /tmp/apr-util-1.5.4.tar.gz 
+    dest: /tmp/
+    remote_src: True
+
+# Moving File To Srclib     
+- name: move files 
+  command: mv /tmp/apr-util-1.5.4 /opt/httpd-2.4.25/srclib/apr-util
+
+# Configuring The Httpd
+- name: run the apr configure from folder
+  shell: /opt/httpd-2.4.25/configure --prefix=/usr/local/apache2 --enable-mods-shared=all
+  
+# Compiling The File   
+- name: run the makefile from folder
+  shell: make
+
+
+# Copie Compiled Files Into Appropriate Locations   
+- name: run the make install file from folder
+  shell: make install
+
+# Copying Script File   
+- name: copy the init script file for system
+  template: src=httpd dest=/etc/init.d mode=0755
+
+# Starting Httpd  
+- name: start the service
+  service: name=httpd state=started 
+  
+    

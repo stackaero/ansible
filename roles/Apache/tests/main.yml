@@ -1,0 +1,12 @@
+---
+# To check the apache version when the installation is done
+- name: Check the apache version
+  shell: /usr/local/apache2/bin/apachectl -v
+  register: output
+  when: ansible_distribution == 'Ubuntu'
+  
+# To check the apache version when the installation is done
+- name: Check the apache version
+  shell: /usr/local/apache2/bin/httpd -v
+  register: output
+  when: ansible_distribution == 'Amazon' or ansible_distribution == 'RedHat'
