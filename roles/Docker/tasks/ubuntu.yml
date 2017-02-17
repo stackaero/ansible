@@ -1,0 +1,42 @@
+---
+# This playbook will install Docker.
+
+# downloads python-setuptools
+- name: Download pyhton-setuptools
+  get_url: url="{{ pyhtontools-ubuntu }}"
+
+# extracts the tar file and saves to destination
+- name: Extract archive
+  command: chdir=/usr/share /bin/tar xvf /tmp/python-setuptools_3.3.orig.tar.gz -C /opt/ creates=/opt/python-setuptools_3.3  
+  
+# installs python-setuptools
+- name: install python-setuptools
+  apt: name=python-setuptools  state=installed
+
+# installs apt-transports-htttps
+- name: Make sure apt-transport-https is installed
+  apt:
+    pkg: "apt-transport-https"
+    state: installed
+
+
+# create docker repository and updates apt cache    
+- name: Add Docker repository and update apt cache
+  apt_repository:
+    repo: "{{ repo_http }}"
+    update_cache: yes
+    state: present
+
+
+# adds key to repository key
+- name: Add Docker repository key
+  apt_key:
+    id: "{{ key_id }}"
+    keyserver: "{{ key_url }}"
+    state: present
+    
+
+# installs docker using .deb file
+- name: install docker
+  apt:
+    deb: "{{ deb_url }}"

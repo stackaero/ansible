@@ -1,0 +1,23 @@
+# here are key files and urls of redhat 
+
+#rpm link for installation
+docker_rpm: https://yum.dockerproject.org/repo/main/centos/6/Packages/docker-engine-1.7.1-1.el6.x86_64.rpm
+
+#key_repository
+repo_url: https://yum.dockerproject.org/gpg
+
+#pythontools
+python-setuptools: url=https://pypi.python.org/packages/2d/f7/02abdb61deaf8135e463b7081d053e952cae3672f3f09d75ca26f4c824c9/setuptools-19.2.tar.gz
+
+
+# here are key files and urls of ubuntu
+
+key_id: 36A1D7869245C8950F966E92D8576A8BA88D21E9
+
+key_url: hkp://keyserver.ubuntu.com:80
+
+repo_http: deb http://get.docker.io/ubuntu docker main
+
+pyhtontools-ubuntu: http://archive.ubuntu.com/ubuntu/pool/main/p/python-setuptools/python-setuptools_3.3.orig.tar.gz dest=/tmp/python-setuptools_3.3.orig.tar.gz
+
+deb_url: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_1.6.0-0~trusty_amd64.deb
