@@ -13,19 +13,19 @@
 
 # Creating a directory        
 - name: Creating the file directory
-  file: path="{{ supervisor.create.dir }}"
+  file: path=/etc/supervisord.d/
      state=directory 
      mode=0755        
      
 #  Copy service files 
 - name: copy services file 
-  template: src="{{ supervisor.service.file }}"
-            dest="{{ supervisor.service.path }}"
+  template: src=visord.service
+            dest=/etc/systemd/system//supervisord.service
 
 # Copy configure files
 - name: copy configservice file to folder
-  template: src="{{ supervisor.config.file }}"  dest="{{ supervisor.config.default }}"
-  #template: src=visord.conf  dest=/etc/supervisord.d/supervisord.conf
+  template: src=visord.conf  dest=/etc/supervisord.d/supervisord.conf
+  
  
  
 # Restart the supervisror 

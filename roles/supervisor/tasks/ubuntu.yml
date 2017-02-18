@@ -16,7 +16,7 @@
 # Creating a directory        
 - name: make directory
   file: 
-    path: "{{ supervisor.create.dir_ubuntu }}"
+    path: /etc/supervisor/conf.d
     state: directory
     mode: 0777
   
@@ -27,19 +27,19 @@
 
 #  Copy service files 
 - name: Configure supervisord service
-  template: src="{{ supervisor.service.file_ubuntu }}" dest="{{ supervisor.service.path_ubuntu }}"
+  template: src=supervisord.service dest=/etc/systemd/system/
  
  
 # Copy configure files  
 - name: Configure supervisord
-  template: src="{{ supervisor.config.file_ubuntu }}" dest="{{ supervisor.config.default_ubuntu }}"
+  template: src=supervisord.conf dest=/etc/supervisor/
  
   
 
 # making path file
 - name: make file
   file: 
-    path: "{{  supervisor.sock.path  }}"
+    path: /var/log/supervisord.sock
     state: touch
   
 # Restart the supervisror 
