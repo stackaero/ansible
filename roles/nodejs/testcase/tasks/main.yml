@@ -1,0 +1,8 @@
+# To check the node version when the installation is done
+- name: Check the node version
+  raw: node -v
+  register: output
+  
+- name: 
+  fail: msg='installation failed'
+  when: "'node' in output.stdout"

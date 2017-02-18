@@ -1,0 +1,9 @@
+---
+- hosts: all
+  remote_user: ec2-user
+  become: yes
+  become_method: sudo
+  become_user: root
+  
+  roles:
+    - nodejs
