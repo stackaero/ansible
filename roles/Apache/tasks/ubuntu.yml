@@ -1,0 +1,45 @@
+---
+# Updating Apt
+-  apt: 
+     update_cache=yes
+     
+# Installing Build Essentials
+- name: Install common
+  apt: name={{ item }} state=present 
+  with_items:
+    - build-essential
+    
+# Installing Dependencies    
+- name: install dep package
+  apt:
+    pkg: apache2
+    state: build-dep   
+    
+# Downloading Apache From Source  
+- name: Download the apache2 file from source
+  unarchive: 
+    src: "{{ apache2_ubuntu }}"
+    dest: /
+    remote_src: True
+    
+# Configuring Httpd
+- name: run the configure from folder
+  shell: /httpd-2.4.25/./configure --prefix=/usr/local/apache2 --enable-mods-shared=all --enable-deflate --enable-proxy --enable-proxy-balancer --enable-proxy-http --with-mpm=prefork
+
+# Compiling The File  
+- name: run the makefile from folder
+  shell: make
+  
+# Copie Compiled Files Into Appropriate Locations 
+- name: run the make install file from folder
+  shell: make install
+
+# Copying Script File 
+- name: copy the script file for system
+  template: src=apache2 dest=/etc/init.d mode=0755
+
+# Strating Apache2  
+- name: start the service
+  service: name=apache2 state=started 
+  
+    

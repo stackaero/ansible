@@ -1,0 +1,24 @@
+# for apache install in redhat
+
+# Download the apache2 file from source
+apache2_soucelink: http://www-eu.apache.org/dist/httpd/httpd-2.4.25.tar.gz
+# Download the aprfile from source
+apr_url: http://www-us.apache.org/dist//apr/apr-1.5.2.tar.gz 
+#  Download the apr-util file from source
+apr_util_link: http://www-us.apache.org/dist//apr/apr-util-1.5.4.tar.gz 
+
+# for apache install in ubuntu
+
+#  Download the apache2 file from source
+apache2_ubuntu: http://www-eu.apache.org/dist/httpd/httpd-2.4.25.tar.gz
+
+# for apache install in amazon linux
+
+# Download the apache2 file from source
+apache2_amazon: http://www-eu.apache.org/dist/httpd/httpd-2.4.25.tar.gz
+# Download the aprfile from source
+apr_amazon: http://www-us.apache.org/dist//apr/apr-1.5.2.tar.gz 
+#  Download the apr-util file from source
+apr_util_amazon: http://www-us.apache.org/dist//apr/apr-util-1.5.4.tar.gz 
+
+
