@@ -13,12 +13,16 @@ Playbook Example
 
 ```
 hosts: all
-  roles:
+roles:
     - nodejs
 
 
 
 ```
+variables decleration
+-----------------------
+
+verion: "6.9.5"
 
  ```
  Dependencies
