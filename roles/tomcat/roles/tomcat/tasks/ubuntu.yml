@@ -1,0 +1,60 @@
+---
+# Installing software-properties-common for manage the repositories that you install
+- name: Install add-apt-repostory
+  apt: name=software-properties-common state=latest
+
+# adding oracle java respository to apt respository
+- name: Add Oracle Java Repository
+  apt_repository: repo='ppa:webupd8team/java'
+
+# Aceepting the oracle java license to download
+- name: Accept Java 8 License
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+# Installing Oracle java latest version from the local respository
+- name: Install Oracle Java 8
+  apt: name={{item}} state=latest
+  with_items:
+    - oracle-java8-installer
+    - ca-certificates
+    - oracle-java8-set-default
+
+# creating a tomcat_group for managing tomcat server
+- name: add group "tomcat_group"
+  group: name={{ tomcat_group }}
+
+# creating a tomcat_user and adding the user to tomcat_group for managing tomcat server
+- name: add user "tomcat_user"
+  user: name={{ tomcat_user }} group={{ tomcat_group }} createhome=no
+
+# Downloading tomcat tar ball to the /opt directory
+- name: Download Tomcat
+  get_url: url={{ tomcat_tar_file }} dest=/opt/apache-tomcat-{{ tomcat_version }}.tar.gz
+
+# Extracting tar ball into /opt directory
+- name: Extract archive tomcat tar file
+  command: /bin/tar xvf /opt/apache-tomcat-{{ tomcat_version }}.tar.gz -C /opt/ creates=/opt/apache-tomcat-{{ tomcat_version }}
+
+# Changing the ownership to tomcat_user for the tomcat home folder
+- name: Change ownership of Tomcat installation
+  file: path=/opt/apache-tomcat-{{ tomcat_version }} owner=tomcat group=tomcat state=directory recurse=yes
+
+# copying configured server file to the tomcat configuration directory
+- name: Configure Tomcat server
+  template: src=server.xml dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/
+ 
+# copying configured tomcat-user file to tomcat configuration folder to manage web application 
+- name: Configure Tomcat users
+  template: src=tomcat-users.xml dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/
+
+# Installing tomcat systemd sccript for the manage tomcat service
+- name: Install Tomcat systemd script
+  template: src=ubuntu-init.sh dest=/etc/systemd/system/tomcat.service mode=0755
+ 
+# Making sure the tomcat server has started 
+- name: Make sure the tomcat is started
+  service: name=tomcat state=started enabled=yes
+
+# waits for the tomcat to start
+- name: Wait for tomcat to start
+  wait_for: port={{http_port}}

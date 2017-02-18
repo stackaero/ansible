@@ -1,0 +1,10 @@
+---
+# Install selinux-python libraries and http server for Ubuntu
+- name: Install necessary packages for tomcat installation
+  apt: name={{ item }} state=present
+  with_items:
+    - python-selinux
+    - libselinux1
+  
+
+    

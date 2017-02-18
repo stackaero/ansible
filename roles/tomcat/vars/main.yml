@@ -1,0 +1,20 @@
+# tomcat port number
+http_port: 8080
+# https port number
+https_port: 8443
+# user for tomcat 
+tomcat_user: tomcat
+# group for tomcat
+tomcat_group: tomcat
+# login id for all the services in tomcat web server
+manager_user: admin
+# password for all the services in tomcat web server
+manager_password: adminsecret
+# java version
+java_version: "7.0"
+# tomcat version
+tomcat_version: "7.0.61"
+# download link to tomcat web server tar ball
+tomcat_tar_file: http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.61/bin/apache-tomcat-7.0.61.tar.gz
+# your server ip address to run automate test
+tomcat_server_ip: "xx.xx.xx.xx"

@@ -1,0 +1,10 @@
+---
+# Install selinux-python libraries,http and firewalld
+- name: Install libselinux-python,httpd and firewalld
+  yum: name={{ item }} state=present 
+  with_items:
+    - libselinux-python
+    - firewalld
+
+- name: Make sure the firewall service is running
+  service: name=firewalld state=started enabled=yes
