@@ -1,0 +1,12 @@
+---
+- include: RHEL.yml
+  when: ansible_os_family == 'RedHat' 
+
+- include: centOS.yml
+  when: ansible_os_family == 'Centos' 
+
+- include: amazon.yml
+  when: ansible_os_family == 'Amazon' 
+
+- include: Ubuntu.yml
+  when: ansible_os_family == 'Ubuntu'

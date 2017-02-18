@@ -1,0 +1,20 @@
+---  
+
+#downloaded the tar file from the nodejs official website
+- name: wget node
+  get_url: url=http://nodejs.org/dist/v6.9.5/node-v6.9.5-linux-x64.tar.gz  dest=/tmp/node-v6.9.5.tar.gz
+  
+#untar the file which we downloaded  
+- name: untar
+  command: tar -xvf /tmp/node-v6.9.5.tar.gz -C /tmp 
+
+#moving the extract file   
+  
+- name: moving
+  command: mv /tmp/node-v6.9.5-linux-x64 /opt/nodejs-v6.9.5
+  
+#moving the file from source to destination  
+                                        
+- name: moving files
+  file: src=/opt/nodejs-v6.9.5/bin/node path=/usr/bin/node state=link
+  
