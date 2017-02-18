@@ -1,0 +1,36 @@
+---
+# Add the MariaDB repository from source to apt_repository
+- name: Install MariaDB repository
+  apt_repository: {{ xenialrepo }} state=present
+ 
+# Add the repository key to the system 
+- name: Add repository key to the system
+  apt_key: {{ keyfile }}
+
+# Downloads the source file from the MariaDB-Server
+- name: extract archive
+  unarchive:
+    src: http://downloads.mariadb.com/MariaDB/mariadb-10.1.21/repo/ubuntu/mariadb-10.1.21-ubuntu-xenial-amd64-debs.tar
+    dest: /opt/
+    remote_src: True
+    
+# Runs the shell command for the repository installed  
+- name: shell command for mariadb debs
+  shell: /opt/mariadb-10.1.21-ubuntu-xenial-amd64-debs/setup_repository    
+ 
+# Installs the MariaDB-Server     
+- name: Install MariaDB Server  
+  apt: name=mariadb-server  update_cache=yes
+
+# Runs the apt-get update    
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+    
+# Starts the MariaDB-Service    
+- name: Start mariadb service
+  service: name=mariadb state=started
+
+
+  
+ 
