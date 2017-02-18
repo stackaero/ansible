@@ -1,0 +1,12 @@
+---
+# installing mongodb in particular ansible os family 
+
+- include: redhat.yml
+  when: ansible_distribution == "RedHat"
+  
+  
+- include: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"  
+  
+- include: amazon.yml
+  when: ansible_distribution == "Amazon"

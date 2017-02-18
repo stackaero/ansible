@@ -1,0 +1,10 @@
+---
+# To check the node version when the installation is done
+- name: Check the node version
+  raw: mongod --version
+  register: output
+
+# when version fails
+- name: 
+  fail: msg='installation failed'
+  when: "'mongod' in output.stdout"

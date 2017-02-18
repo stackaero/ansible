@@ -1,0 +1,98 @@
+---
+# creating directory
+- file:
+    path: /mongodb  
+    state: directory
+    mode: 0755
+
+
+#Download and unarchive the tar file
+- unarchive:
+    src: "{{ redhat_url }}"
+    dest: /opt/  
+    remote_src: True
+    
+# creating a group    
+- name: add group "mongodb"
+  group: name=mongodb
+
+# setting the permission  
+- file:
+    path: /mongodb
+    owner: root
+    group: mongodb
+    mode: 0755
+
+
+ # copy files 
+- name: Move file  to mongo
+  command: cp -R /opt/mongodb-linux-x86_64-rhel70-3.4.2/.  /mongodb
+
+#add path to .bashrc 
+- lineinfile:
+    dest: /root/.bashrc
+    line: export PATH=/mongodb/bin:$PATH
+    
+#add path to .bashrc    
+- lineinfile:
+    dest: /root/.bashrc
+    line: export MONGO_HOME=/mongodb
+    mode: 0755
+
+#source the bashrc  
+- name: source bashrc
+  sudo: yes 
+  shell: source /root/.bashrc
+  args:
+     executable: /bin/bash
+
+# copy the mongoservice
+- name: copy the service mongo
+  template: src=mongod.service dest=/etc/systemd/system
+  
+#creating directory     
+- file:
+    path: /data/db  
+    state: directory
+    mode: 0755
+
+#
+- name: update the yum
+  yum: name=* state=latest
+  
+
+# installing libselinux-python  
+- name: Install libselinux-python
+  yum: name=libselinux-python  state=latest
+  
+# installing policycoreutils-python  
+- name: Install policycoreutils-python
+  yum: name=policycoreutils-python  state=latest
+  
+#Set SELinux to permissive mode 
+- selinux:
+    policy: targeted
+    state: permissive    
+    
+  
+# Configuring SELinux to allow MongoDB to run
+
+- seport:
+    ports: 27017
+    proto: tcp
+    setype: mongod_port_t
+    state: present
+
+# Disabling selenux  
+
+- selinux:
+    state: disabled
+    
+# Set SELinux to permissive mode    
+
+- selinux:
+    policy: targeted
+    state: permissive
+    
+    
+

@@ -1,0 +1,15 @@
+[Unit]
+Description= MongoDB Server
+After=network.target
+
+[Service]
+Type=forking
+RemainAfterExit=yes
+User=root
+Group=root
+PIDFile=/server/mongodb-server/mongod.pid
+ExecStart=/server/mongodb-server/bin/mongod -f /server/mongodb-server/mongodb.conf
+
+
+[Install]
+WantedBy=multi-user.target

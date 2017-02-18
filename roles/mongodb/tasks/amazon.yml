@@ -1,0 +1,61 @@
+---
+# creating a directory
+- file:
+    path: /mongodb  
+    state: directory
+    mode: 0755
+
+# Download and unarchive tar file
+- unarchive:
+    src: "{{amazon_url}}"
+    dest: /opt/  
+    remote_src: True
+    
+#  creating a group
+- name: add group "mongodb"
+  group: name=mongodb
+  
+# setting the permissions  
+- file:
+    path: /mongodb
+    owner: root
+    group: mongodb
+    mode: 0755
+
+
+# copy files  
+- name: Move file  to mongo
+  command: cp -R /opt/mongodb-linux-x86_64-amazon-3.4.2/.  /mongodb
+
+ 
+#Add path to .bashrc
+- lineinfile:
+    dest: /root/.bashrc
+    line: export MONGO_HOME=/mongodb
+    mode: 0755
+
+
+# Add pth to .bashrc
+- lineinfile:
+    dest: /root/.bashrc
+    line: export PATH=/mongodb/bin:$PATH
+    
+    
+
+# source the bashrc  
+- name: source bashrc
+  sudo: yes 
+  shell: source /root/.bashrc
+  args:
+     executable: /bin/bash
+     
+     
+# copy the mongoservice
+- name: copy the service mongo
+  template: src=mongod  dest=/etc/init.d/mongod
+
+# creating directory     
+- file:
+    path: /data/db  
+    state: directory
+    mode: 0755
