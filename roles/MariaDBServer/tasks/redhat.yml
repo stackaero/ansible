@@ -1,0 +1,27 @@
+---
+# Downloads the Source file form server
+- name: extract archive
+  unarchive:
+    src:  {{ mariadbserverrpmfile }}
+    dest: /opt/
+    remote_src: True
+
+# Installs the rpm key to repo  
+- rpm_key:
+    state: present
+    key: {{ rpmkey }}  
+    
+# Runs the shell command for the repository installed  
+- name: shell command for mariadb debs
+  shell: /opt/mariadb-10.1.21-rhel-7-x86_64-rpms/setup_repository
+  
+# Installs the mariadb-server from the Downloaded repository  
+- name: install mariadb through yum repo
+  yum: name=MariaDB-server 
+  
+# Starts the MariaDb-Serivice
+- name: Start MariaDB Service
+  service: name=mariadb state=started enabled=yes
+  
+
+
