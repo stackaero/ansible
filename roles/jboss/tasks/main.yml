@@ -1,0 +1,12 @@
+---
+- name: Include amazon.yml if the operating system is Amazon
+  include: amazon.yml
+  when: ansible_distribution == "Amazon"
+  
+- name: Include amazon.yml if the operating system is redhat
+  include: redhat.yml
+  when: ansible_distribution == "RedHat"
+  
+- name: Include amazon.yml if the operating system is Ubuntu
+  include: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
