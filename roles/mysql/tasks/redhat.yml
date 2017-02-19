@@ -27,6 +27,3 @@
 - name: start mysql
   service: name=mysqld state=started
   
-  
-- name: Create Application DB User
-  user: name=root password=root  state=present
