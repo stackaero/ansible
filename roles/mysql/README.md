@@ -40,6 +40,6 @@ Dependencies
  
 Author
 -----
-hariprasad reddy @b.hariprasadreddy94@hotmail.com
+b.hariprasadreddy18@gmail.com
 
 ```
