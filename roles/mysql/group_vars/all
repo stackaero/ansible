@@ -1,0 +1,15 @@
+# This is redhatmysql rpm link
+rhelmysql: https://dev.mysql.com/get/Downloads/https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-community-5.7.17-1.el7.src.rpm
+
+# This is redhat rpm file which will install mysql
+rhelrpm: mysql-community-5.7.17-1.el7.src.rpm
+
+#This is amazonmysql rpm link 
+amazonmysql: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+
+#This is amazon rpm file which will install mysql
+amazonrpm: mysql-community-release-el7-5.noarch.rpm
+
+#This is ubuntumysql rpm link
+ubuntumysql: https://dev.mysql.com/get/mysql-apt-config_0.8.1-1_all.deb
+    

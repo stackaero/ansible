@@ -1,0 +1,29 @@
+---
+# This playbook will install mysql and create db user and give permissions.
+
+
+- name: Configure host name
+  command: hostname -f
+  
+
+- name: updating yum
+  yum: name=*   state=installed
+
+- name: install wget 
+  yum: name=wget state=installed
+
+- name: get the package
+  command: wget {{ rhelmysql }}
+  
+  
+- name: install
+  yum:
+     name='{{ rhelrpm }}'
+ 
+  
+- name: install mysql-server
+  yum: name=mysql-server state=present
+  
+- name: start mysql
+  service: name=mysqld state=started
+  

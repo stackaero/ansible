@@ -1,0 +1,24 @@
+---
+# This playbook will install mysql and create db user and give permissions.
+
+- name: Configure host name
+  command: hostname -f
+  
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+  
+- name: get the package
+  get_url: url=https://dev.mysql.com/get/mysql-apt-config_0.8.1-1_all.deb  dest=/opt/mysql-apt-config_0.6.0-1_all.deb
+  
+- name: mysql-server
+  apt:
+    deb=/opt/mysql-apt-config_0.6.0-1_all.deb
+    
+- name: mysql-server
+  apt: name=mysql-server state=latest
+  
+- name: start mysql
+  service: name=mysql state=started
+  
