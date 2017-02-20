@@ -1,0 +1,18 @@
+Project_info:
+  author: vinay reddy
+  description: Installing java 
+  company: N/A
+  license: java
+  min_ansible_version: 1.8
+  platforms:
+  - name: Redhat 
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Amazon
+    versions:
+    - all
+categories:
+  - java

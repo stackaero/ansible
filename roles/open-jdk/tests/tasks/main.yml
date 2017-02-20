@@ -1,0 +1,8 @@
+# setting whether java is installed sucessfully
+- name: checking java version and registering output
+  raw: java -version
+  register: java_register
+  
+- name: test failed displays message
+  fail: msg='java installation failed'
+  when: "'java' not in java_register.stdout"
