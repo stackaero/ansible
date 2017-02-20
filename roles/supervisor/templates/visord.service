@@ -1,0 +1,13 @@
+[Unit]
+Description=Supervisor daemon
+
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/supervisord -c /etc/supervisord.d/supervisord.conf
+ExecStop=/usr/bin/supervisorctl -c /etc/supervisord.d/supervisord.conf shutdown
+ExecReload=/usr/bin/supervisorctl  -c /etc/supervisord.d/supervisord.conf reload
+
+
+[Install]
+WantedBy=multi-user.target

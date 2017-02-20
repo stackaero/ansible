@@ -1,0 +1,23 @@
+---
+
+# Integration testing playbook
+# ----------------------------
+
+# A playbook for testing and integration.
+
+# It will provision the `test` hosts in the inventory,
+# which will, by default, specify the provided vagrant VM.
+
+# This playbook should aim to test the most extensive
+# or comprehensive configuration possible for your role.
+
+# status checking 
+- name: 'Role integration tests'
+  command: systemctl status supervisord.service 
+  register: output
+  
+# when version fails
+- name: 
+  fail: msg='installation failed'
+  when: "'supervisor' not in output.stdout"
+  

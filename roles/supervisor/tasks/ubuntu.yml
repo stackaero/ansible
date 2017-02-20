@@ -1,0 +1,49 @@
+---
+#This is playbook will install Supervisor on ubuntu
+
+# Install python-setuptools
+- name: install python
+  apt:
+    pkg: "python-setuptools"
+    state: present
+  
+# install supervisor 
+- name: install supervisor
+  apt:
+    pkg: "supervisor"
+    state: installed
+  
+# Creating a directory        
+- name: make directory
+  file: 
+    path: /etc/supervisor/conf.d
+    state: directory
+    mode: 0777
+  
+# Restart the supervisror 
+- name: start supervisor
+  service: name=supervisor state=started enabled=yes
+  
+
+#  Copy service files 
+- name: Configure supervisord service
+  template: src=supervisord.service dest=/etc/systemd/system/
+ 
+ 
+# Copy configure files  
+- name: Configure supervisord
+  template: src=supervisord.conf dest=/etc/supervisor/
+ 
+  
+
+# making path file
+- name: make file
+  file: 
+    path: /var/log/supervisord.sock
+    state: touch
+  
+# Restart the supervisror 
+- name: start supervisor
+  service: name=supervisor state=started 
+  
+
