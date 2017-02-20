@@ -24,7 +24,7 @@
 
 # Copy configure files
 - name: copy configservice file to folder
-  template: src=visord.conf  dest=/etc/supervisord.d/supervisord.conf
+  template: src=supervisord.conf  dest=/etc/supervisord.d/supervisord.conf
   
  
  
