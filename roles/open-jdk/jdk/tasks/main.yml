@@ -1,0 +1,31 @@
+# creating a direcory for java installation in the machine
+- name: creating a director for java installation
+  file:
+    path: "{{ java_install_dir }}"
+    state: directory
+    
+# downloading and extracting the tar ball in the java directory   
+- name: Downloading the java tar ball
+  unarchive:
+    src: "{{ java_tar_ball }}"
+    dest: "{{ java_install_dir }}"
+    remote_src: True
+
+# setting the java home path in .bashrc file
+- name: setting java home path
+  lineinfile:
+    dest: /root/.bashrc
+    line: export JAVA_HOME={{ java_install_dir }}/jdk1.{{ java_version }}_{{ java_sub_version }}
+    state: present
+
+# setting the java bin path in .bashrc file
+- name: setting the java path
+  lineinfile:
+    dest: /root/.bashrc
+    line: export PATH=$JAVA_HOME/bin:$PATH
+    state: present  
+  
+# executing the source command to load functions into current shell  
+- name: running the source command
+  shell: source /root/.bashrc
+  

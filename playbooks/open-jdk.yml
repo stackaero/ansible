@@ -1,0 +1,9 @@
+---
+- name: Install java
+  become: True
+  hosts: java
+  remote_user: ec2-user
+  become_user: root
+  roles:
+    - jdk
+    
