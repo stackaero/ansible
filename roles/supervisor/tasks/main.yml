@@ -1,0 +1,12 @@
+---
+
+
+# Checking OS family its ubntu do the taks otherwise skip it..
+- include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+  
+
+# Checking OS family its redhat do the taks otherwise skip it..
+- include: redhat.yml
+  when: ansible_distribution == 'RedHat' 
+  

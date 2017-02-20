@@ -1,0 +1,34 @@
+---
+#This is playbook will install Supervisor on redhat 
+
+# Install python-setuptools
+- name: Install python-setuptools
+  yum: 
+        pkg=python-setuptools
+        state=present 
+
+# Instaling easy_install package        
+- name: Install supervisor
+  shell: easy_install supervisor
+
+# Creating a directory        
+- name: Creating the file directory
+  file: path=/etc/supervisord.d/
+     state=directory 
+     mode=0755        
+     
+#  Copy service files 
+- name: copy services file 
+  template: src=visord.service
+            dest=/etc/systemd/system//supervisord.service
+
+# Copy configure files
+- name: copy configservice file to folder
+  template: src=supervisord.conf  dest=/etc/supervisord.d/supervisord.conf
+  
+ 
+ 
+# Restart the supervisror 
+- name: Restart supervisord service
+  service: name=supervisord state=restarted enabled=yes
+
