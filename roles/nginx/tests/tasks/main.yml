@@ -1,0 +1,10 @@
+---
+# Gathering the facts from the webserver home page
+- name: testing whether the nginx on http_port
+  action: uri url=http://{{ server_ip }}:80 return_content=yes
+  register: webpage
+
+# Displays a fail message if the webserver home page dosen't have a "nginx" in it 
+- name: Display fail message if the webserver is not sucessfully installed
+  fail: msg='nginx has not installed sucessfully'
+  when: "'nginx' not in webpage.content"
