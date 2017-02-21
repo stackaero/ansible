@@ -1,0 +1,7 @@
+#common to RedHat/Ubuntu/AmazonLinux
+- include: redhat_development_tools.yml
+  when: ansible_os_family == 'RedHat' or ansible_os_family == 'Amazon'
+
+- include: ubuntu_development_tools.yml
+  when: ansible_distribution == "Ubuntu"
+  

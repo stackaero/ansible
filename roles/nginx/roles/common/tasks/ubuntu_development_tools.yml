@@ -1,0 +1,48 @@
+---
+
+# Installing development tools like GCC, C++, etc., required to Ubuntu
+- name: Installing Development Tools in Ubuntu
+  apt:
+   name: build-essential
+   state: present
+   
+# Install dependicies required for nginx
+
+# Downloading and Installing PCRE  
+- name: Download and unarchive PCRE
+  unarchive:
+   src: https://ftp.pcre.org/pub/pcre/pcre-{{ pcre_version }}.tar.gz
+   dest: "{{ path_to_install }}"
+   remote_src: True
+   
+- name: Installing PCRE
+  shell: ./configure && make && make install
+  args:
+   chdir: "{{ path_to_install }}/pcre-{{ pcre_version }}"
+
+
+# Downloading and Installing Zlib  
+- name: Download and unarchive Zlib
+  unarchive:
+   src: http://zlib.net/zlib-{{ zlib_version }}.tar.gz
+   dest: "{{ path_to_install }}"
+   remote_src: True
+   
+- name: Installing Zlib
+  shell: ./configure && make && make install
+  args:
+   chdir: "{{ path_to_install }}/zlib-{{ zlib_version }}"
+   
+   
+# Downloading and Installing OpenSSL  
+- name: Download and unarchive OpenSSL
+  unarchive:
+   src: http://www.openssl.org/source/openssl-{{ openssl_version }}.tar.gz
+   dest: "{{ path_to_install }}"
+   remote_src: True
+   
+- name: Installing OpenSSL
+  shell: ./config --prefix=/usr && make && make install
+  args:
+   chdir: "{{ path_to_install }}/openssl-{{ openssl_version }}"
+   
