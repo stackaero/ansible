@@ -1,0 +1,26 @@
+# Downloading and Installing nginx  
+- name: Download and unarchive nginx
+  unarchive:
+   src: http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
+   dest: "{{ path_to_install }}"
+   remote_src: True
+   
+- name: Installing nginx
+  shell: ./configure --prefix=/usr && make && make install
+  args:
+   chdir: "{{ path_to_install }}/nginx-{{ nginx_version }}"
+   
+- name: install nginx startup script in Redhat/ubuntu
+  template: src=nginx.service dest=/etc/systemd/system/nginx.service owner=root group=root mode=0755
+  when: ansible_distribution == 'RedHat' or ansible_distribution == 'Ubuntu'
+
+- name : install nginx startup script in AmazonLinuz
+  copy : src=nginx dest=/etc/sysconfig/nginx owner=root group=root mode=0755
+  when: ansible_distribution == 'Amazon'
+  
+- name: install nginx startup script in AmazonLinuz
+  template: src=nginx.init dest=/etc/init.d/nginx owner=root group=root mode=0755
+  when: ansible_distribution == 'Amazon'
+  
+- name: start nginx and ensure started on boot
+  service: name=nginx state=started 
