@@ -13,12 +13,11 @@
 - name: install nginx startup script in Redhat/ubuntu
   template: src=nginx.service dest=/etc/systemd/system/nginx.service owner=root group=root mode=0755
   when: ansible_distribution == 'RedHat' or ansible_distribution == 'Ubuntu'
-  
-- name: install nginx startup script in AmazonLinuz
-  template: src=nginx dest=/etc/sysconfig/nginx owner=root group=root mode=0755
+
+- name : install nginx startup script in AmazonLinuz
+  copy : src=nginx dest=/etc/sysconfig/nginx owner=root group=root mode=0755
   when: ansible_distribution == 'Amazon'
-
-
+  
 - name: install nginx startup script in AmazonLinuz
   template: src=nginx.init dest=/etc/init.d/nginx owner=root group=root mode=0755
   when: ansible_distribution == 'Amazon'

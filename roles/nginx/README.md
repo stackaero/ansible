@@ -13,7 +13,7 @@ Note : Install python manually on ubuntu 16,  before installation of nginx
 
 Role Variables:
 ---------------
-nginx/group_vars/all
+nginx/vars/main.yml
 
 ## Installation Variables
 
