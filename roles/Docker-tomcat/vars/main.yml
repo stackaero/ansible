@@ -1,0 +1,17 @@
+# variables used in launching an instance
+key_pair: centkey
+region: us-west-2
+instance_type: t2.micro
+ami_id: "ami-f173cc91"
+instance_name: docker-instance
+subnet_id: subnet-b60b3dee
+security_group: my-security-group
+
+# Variables used in building docker tomcat image and running the container
+tomcat_directory: /opt/tomcat
+docker_image_name: vvinayreddy/tomcat
+tomcat_user: admin
+tomcat_password: adminsecret
+# put your server ip address for testing
+tomcat_server_ip: x.x.x.x
+http_port: 8080

@@ -1,0 +1,36 @@
+---
+# Launching an Instance in AWS
+- name: creating an instance
+  ec2:
+    key_name: "{{ key_pair }}"
+    region: "{{ region }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ ami_id }}"
+    wait: true
+    wait_timeout: 500
+    count: 1
+    instance_tags:
+        Name: "{{ instance_name }}"
+        Owner: vinay
+    monitoring: no
+    vpc_subnet_id: "{{ subnet_id }}"
+    assign_public_ip: yes
+    group: "{{ security_group }}"
+  register: host1
+
+# Waiting for the ssh to come up 
+- name: wait for ssh to come up
+  wait_for: 
+    host:{{ item.public_dns_name }} 
+    port=22 
+    delay=60 
+    timeout=320 
+    state=started
+  with_items: '{{ host1.instances }}'
+
+# Capturing the Instance IP Address in to a temporary group
+- name: Add servers to temporary group
+  add_host:
+    hostname: '{{ item.public_ip }}'
+    groupname: docker-server
+  with_items: '{{ host1.instances }}'
