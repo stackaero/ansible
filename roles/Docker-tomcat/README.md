@@ -35,6 +35,7 @@ docker_image_name: vvinayreddy/tomcat
 tomcat_user: admin
 tomcat_password: adminsecret
 http_port: 8080
+java_home: /usr/lib/jvm/jdk1.8.0_60
 ```
 Dependencies
 ------------
