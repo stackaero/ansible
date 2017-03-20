@@ -1,0 +1,60 @@
+---
+# Docker Installation
+- name: install python
+  yum:
+    name: docker
+    state: present
+
+# Make sure the docker is started    
+- name: service docker start
+  service:
+    name: docker
+    state: started
+
+# Installing python-pip
+- name: install python-pip
+  shell: easy_install pip
+
+# Installing docker-py to access docker modules in ansible  
+- name: Installing Docker-PY
+  pip:
+    name: docker-py
+    state: present
+
+# Creating a directory for docker file    
+- name : creating a directory for docker file
+  file: 
+    path: "{{ tomcat_directory }}"
+    state: directory
+    mode: 0755
+
+# Copying the docker file to remote location
+- name: copying the Dockerfile to the remore directory
+  template:
+    src: Dockerfile
+    dest: "{{ tomcat_directory }}"
+    mode: 0755
+
+- name: copying the configured tomcat users file to the remore directory
+  template:
+    src: tomcat-users.xml
+    dest: "{{ tomcat_directory }}"
+    mode: 0755
+
+# Building the docker image using docker_image module in ansible    
+- name: Building the docker image
+  docker_image:
+    path: "{{ tomcat_directory }}"
+    name: "{{ docker_image_name }}"
+
+# Running the container using docker image build above    
+- name: running the docker image
+  docker:
+    name: tomcat
+    image: "{{ docker_image_name }}"
+    state: started
+    ports:
+        - "8080:8080"
+    env:
+        JAVA_HOME: /usr/lib/jvm/jdk1.8.0_60
+      
