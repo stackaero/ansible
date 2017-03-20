@@ -56,5 +56,5 @@
     ports:
         - "8080:8080"
     env:
-        JAVA_HOME: /usr/lib/jvm/jdk1.8.0_60
+        JAVA_HOME: ""{{ java_home }}
       

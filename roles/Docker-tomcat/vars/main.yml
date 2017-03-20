@@ -15,3 +15,4 @@ tomcat_password: adminsecret
 # put your server ip address for testing
 tomcat_server_ip: x.x.x.x
 http_port: 8080
+java_home: /usr/lib/jvm/jdk1.8.0_60
