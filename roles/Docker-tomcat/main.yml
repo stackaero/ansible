@@ -1,0 +1,15 @@
+---
+- name: Launching instance
+  hosts: localhost
+  roles:
+    - Instance
+    
+- name: Installing Docker
+  hosts: docker-server
+  remote_user: ec2-user
+  become: yes
+  become_method: sudo 
+  become_user: root
+  roles:
+    - image
+    

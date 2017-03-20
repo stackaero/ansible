@@ -1,0 +1,10 @@
+---
+# Gathering the facts from the webserver home page
+- name: testing whether the tomcat server on http_port
+  action: uri url=http://{{ tomcat_server_ip }}:{{ http_port }} return_content=yes
+  register: webpage
+
+# Displays a fail message if the webserver home page dosen't have a "apache" in it 
+- name: Display fail message if the webserver is not sucessfully installed
+  fail: msg='tomcat server has not installed sucessfully'
+  when: "'Apache' not in webpage.content"

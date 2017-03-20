@@ -1,0 +1,11 @@
+- name: Installing Docker
+  hosts: git
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo 
+  become_user: root
+  roles:
+   - git-clone
+   - docker-push
+   
+    

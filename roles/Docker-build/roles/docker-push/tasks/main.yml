@@ -1,0 +1,40 @@
+- name: Log into DockerHub
+  docker_login:
+    username: "{{ docker_hub_user }}"
+    password: "{{ docker_hub_pass }}"
+    email: "{{ docker_hub_email }}"
+  
+- name: Building the docker tomcat image and pushing it to the docker respository
+  docker_image:
+    path: "{{ docker_tomcat_file }}"
+    name: "{{ docker_tomcat_repo }}"
+    state: present
+    push: yes
+
+- name: Building the docker mariadb image and pushing it to the docker respository
+  docker_image:
+    path: "{{ docker_mariadb_file }}"
+    name: "{{ docker_mariadb_repo }}"
+    state: present
+    push: yes
+
+- name: Building the docker nginx images and pushing it to the docker respository
+  docker_image:
+    path: "{{ docker_nginx_file }}"
+    name: "{{ docker_nginx_repo }}"
+    state: present
+    push: yes
+
+- name: Building the docker supervisor images and pushing it to the docker respository
+  docker_image:
+    path: "{{ docker_supervisor_file }}"
+    name: "{{ docker_supervisor_repo }}"
+    state: present
+    push: yes
+
+- name: Building the docker MongoDb image and pushing it to the docker respository
+  docker_image:
+    path: "{{ docker_mongodb_file }}"
+    name: "{{ docker_mongodb_repo }}"
+    state: present
+    push: yes

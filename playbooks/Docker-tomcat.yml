@@ -1,0 +1,6 @@
+---
+- name: Launching instance
+  hosts: localhost
+  roles:
+    - Docker-tomcat
+    

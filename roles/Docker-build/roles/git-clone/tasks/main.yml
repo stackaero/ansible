@@ -1,0 +1,21 @@
+---
+
+- name: make sure the docker engine in running
+  service:
+    name: docker
+    state: started
+
+- name: creating a directory for the docker reposiroty
+  file:
+    path: "{{ git_directory }}"
+    state: directory
+    
+- name: clonning the git repository
+  git: 
+    repo: "{{ git_repo }}"
+    dest: "{{ git_directory }}"
+    clone: yes
+
+- name: installing python-pip
+  shell: pip install docker-py
+  
