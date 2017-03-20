@@ -1,0 +1,30 @@
+# Directory to clone git repository
+git_directory: /home/ubuntu/docker-repo
+# git repository
+git_repo: https://github.com/xxxx/dockerzone.git
+# Docker hub user name
+docker_hub_user: xxxxxx
+# Docker hub password
+docker_hub_pass: xxxxxxxx
+# Docker hub email id
+docker_hub_email: xxxxx@gmail.com
+# Docker file for building tomcat image
+docker_tomcat_file: /home/ubuntu/docker-repo/images/tomcat/
+# Docker image file name
+docker_tomcat_repo: xxxxx/tomcat
+# Docker file for building mariadb image
+docker_mariadb_file: /home/ubuntu/docker-repo/images/mariadb/
+# Docker image file mariadbname
+docker_mariadb_repo: xxxxxx/mariadb
+# Docker file for building nginx image
+docker_nginx_file: /home/ubuntu/docker-repo/images/nginx/
+# Docker image file name
+docker_nginx_repo: xxxxx/nginx
+# Docker file for building supervisor image
+docker_supervisor_file: /home/ubuntu/docker-repo/images/supervisor/
+# Docker image file name
+docker_supervisor_repo: xxxxx/supervisor
+# Docker file for building mongodb image
+docker_mongodb_file: /home/ubuntu/docker-repo/images/MongoDB/
+# Docker image file name 
+docker_mongodb_repo: xxxx/mongodb
